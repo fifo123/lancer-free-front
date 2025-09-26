@@ -54,6 +54,7 @@ function createProjectCard(project) {
         close: true,
       }).showToast();
       buscarDashboardDeProjeto();
+      buscarTodosProjetos();
     } catch (e) {
       console.error(error);
       Toastify({
