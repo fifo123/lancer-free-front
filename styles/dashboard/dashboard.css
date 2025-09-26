@@ -1,0 +1,79 @@
+.container-dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.card-totalizador {
+    flex: 1 1 250px;
+    min-width: 250px;
+    max-width: 350px;
+    background: var(--white);
+    border-radius: 16px;
+    padding: 8px;
+    text-align: center;
+
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 14px;
+        font-weight: normal;
+    }
+
+    overflow: hidden;
+    position: relative;
+}
+
+.card-totalizador::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: var(
+        --borda-gradiente,
+        linear-gradient(to right, var(--gray), var(--dark-gray))
+    );
+
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.card-pendente::after {
+    --borda-gradiente: linear-gradient(
+        to right,
+        var(--warning),
+        var(--warning-dark)
+    );
+}
+.card-pendente {
+    color: color-mix(in srgb, var(--warning-dark) 90%, black 10%);
+}
+
+.card-em-andamento::after {
+    --borda-gradiente: linear-gradient(
+        to right,
+        var(--primary),
+        var(--primary-dark)
+    );
+}
+.card-em-andamento {
+    color: color-mix(in srgb, var(--primary-dark) 90%, black 10%);
+}
+
+.card-concluido::after {
+    --borda-gradiente: linear-gradient(
+        to right,
+        var(--success),
+        var(--success-dark)
+    );
+}
+.card-concluido {
+    color: color-mix(in srgb, var(--success-dark) 90%, black 10%);
+}

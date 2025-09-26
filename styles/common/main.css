@@ -1,0 +1,100 @@
+:root {
+    --primary: #2196f3;
+    --primary-dark: #1976d2;
+    --success: #4caf50;
+    --success-dark: #388e3c;
+    --warning: #ff9800;
+    --warning-dark: #f57c00;
+    --error: #f44336;
+    --error-dark: #d32f2f;
+    --light-gray: #f8f9fa;
+    --gray: #a8a9aa;
+    --dark-gray: #444;
+    --white: #fff;
+    --dark-white: #eee;
+    --darker-white: #ccc;
+}
+
+* {
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    background: var(--light-gray);
+    color: var(--dark-gray);
+    padding-inline: 50px;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding-inline: 10px;
+    }
+}
+
+.overlay {
+    position: fixed;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: none;
+    z-index: 99;
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="checkbox"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    background: var(--white);
+}
+
+textarea {
+    resize: vertical;
+}
+
+input[type="checkbox"] {
+    width: auto;
+    margin-top: 0;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+}
+
+.input-com-span {
+    position: relative;
+}
+
+.input-com-span input {
+    padding-left: 30px;
+}
+
+.input-com-span span {
+    height: calc(100% - 5px);
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    display: flex;
+    align-items: center;
+    color: var(--dark-gray);
+}

@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Gestão de Projetos - Freelancer</title>
+
+        <!--importar fontes-->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet"
+        />
+
+        <!--css files-->
+        <link rel="stylesheet" href="styles/common/main.css" />
+        <link rel="stylesheet" href="styles/common/header.css" />
+        <link rel="stylesheet" href="styles/common/button.css" />
+        <link rel="stylesheet" href="styles/common/acordeao.css" />
+        <link rel="stylesheet" href="styles/common/card.css" />
+        <link rel="stylesheet" href="styles/common/status-select.css" />
+        <link rel="stylesheet" href="styles/common/modal.css" />
+        <link rel="stylesheet" href="styles/common/emoji-select.css" />
+        <link
+            rel="stylesheet"
+            href="styles/projeto/formulario-adicionar-projeto.css"
+        />
+        <link rel="stylesheet" href="styles/dashboard/dashboard.css" />
+
+        <!--CSS Toastify-->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+        />
+
+        <!--favicon-->
+        <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
+    </head>
+    <body>
+        <div class="overlay" id="overlay"></div>
+
+        <!--header-->
+        <div class="logo-container">
+            <img
+                src="img/lancer_free_logo.png"
+                alt="Lancer Free Logo"
+                class="logo"
+            />
+        </div>
+
+        <!--dashboard-->
+        <section id="dashboard" class="container-dashboard">
+            <main class="card-totalizador card-pendente">
+                <h2>
+                    Valor pendente
+                    <span id="porcentagem-pending-dashboard">(0%)</span>
+                </h2>
+                <h1 id="valor-pending-dashboard">-</h1>
+            </main>
+            <main class="card-totalizador card-em-andamento">
+                <h2>
+                    Valor em andamento
+                    <span id="porcentagem-progress-dashboard">(0%)</span>
+                </h2>
+                <h1 id="valor-progress-dashboard">-</h1>
+            </main>
+            <main class="card-totalizador card-concluido">
+                <h2>
+                    Valor concluído
+                    <span id="porcentagem-done-dashboard">(0%)</span>
+                </h2>
+                <h1 id="valor-done-dashboard">-</h1>
+            </main>
+            <main class="card-totalizador">
+                <h2>Valor total</h2>
+                <h1 id="valor-total-dashboard">-</h1>
+            </main>
+        </section>
+
+        <!--listagem meus projetos-->
+        <section id="meus-projetos">
+            <header class="header-acordeao meus-projetos-header">
+                <h1>Meus Projetos</h1>
+                <div class="acordeao-buttons">
+                    <button id="addProject" class="botao-primario">
+                        + Novo Projeto
+                    </button>
+                    <button
+                        id="collapse-button"
+                        class="botao-branco botao-colapsar"
+                        onclick="collapsarConteudo('projeto', event)"
+                    >
+                        <span>-</span>
+                    </button>
+                </div>
+            </header>
+            <main
+                class="corpo-acordeao collapsible-content"
+                id="collapsible-content-projeto"
+            >
+                <p id="projeto-empty-message" class="message">
+                    Nenhum projeto encontrado. Clique em
+                    <strong>+ Novo Projeto</strong> para adicionar.
+                </p>
+                <div class="acordeao-corpo-grid" id="projeto-grid"></div>
+            </main>
+        </section>
+
+        <!--listagem meus templates-->
+        <section id="meus-templates" style="margin-bottom: 50px">
+            <header class="header-acordeao meus-templates-header">
+                <h1>Meus Templates</h1>
+                <div class="acordeao-buttons">
+                    <button id="add-template" class="botao-primario">
+                        + Novo Template
+                    </button>
+                    <button
+                        id="collapse-button"
+                        class="botao-branco botao-colapsar"
+                        onclick="collapsarConteudo('template', event)"
+                    >
+                        <span>-</span>
+                    </button>
+                </div>
+            </header>
+            <main
+                class="corpo-acordeao collapsible-content"
+                id="collapsible-content-template"
+            >
+                <p id="template-empty-message" class="message">
+                    Nenhum template encontrado. Clique em
+                    <strong>+ Novo Template</strong> para adicionar.
+                </p>
+                <div class="acordeao-corpo-grid" id="template-grid"></div>
+            </main>
+        </section>
+
+        <!--modal de criar ou atualizar projeto-->
+        <section id="modal-criar-projeto">
+            <main class="modal">
+                <header class="modal-header">
+                    <p>Projeto</p>
+                    <button
+                        onclick="fecharModais()"
+                        style="font-weight: 400"
+                        class="botao-branco"
+                    >
+                        Fechar
+                    </button>
+                </header>
+                <form
+                    id="modal-form-projeto"
+                    style="
+                        display: flex;
+                        flex-direction: column;
+                        max-height: calc(100vh - 100px);
+                    "
+                >
+                    <div
+                        id="formulario-adicionar-projeto"
+                        class="formulario-adicionar-projeto"
+                    >
+                        <div class="emoji-input">
+                            <p>Emoji:</p>
+
+                            <button
+                                type="button"
+                                style="color: var(--black)"
+                                id="emojiBtn"
+                            ></button>
+                            <div class="emoji-modal" id="emojiModal"></div>
+                        </div>
+                        <label>
+                            Nome*
+                            <input
+                                type="text"
+                                name="nome"
+                                maxlength="200"
+                                required
+                            />
+                        </label>
+                        <label>
+                            Descrição*
+                            <textarea
+                                name="descricao"
+                                rows="4"
+                                maxlength="500"
+                                required
+                            ></textarea>
+                        </label>
+                        <label>
+                            Valor do Projeto*
+                            <div class="input-com-span">
+                                <span>R$</span>
+                                <input
+                                    type="number"
+                                    name="valor"
+                                    min="0"
+                                    step="0.01"
+                                    maxlength="12"
+                                    required
+                                />
+                            </div>
+                        </label>
+                        <label>
+                            Template de tarefas*
+                            <select
+                                name="template"
+                                id="select-template-create-project"
+                            >
+                                <option value="none">Nenhum</option>
+                            </select>
+                        </label>
+                        <label> Tarefas </label>
+                        <main id="listagem-tarefas-projeto"></main>
+                        <button
+                            type="button"
+                            style="margin-top: 5px"
+                            onclick="adicionarNovaTarefa('projeto')"
+                            class="botao-outlined borda-primaria"
+                        >
+                            Adicionar tarefa +
+                        </button>
+                    </div>
+                    <footer class="modal-footer">
+                        <button
+                            id="deletar-projeto"
+                            class="botao-vermelho"
+                            style="font-weight: normal; display: none"
+                            type="button"
+                            onclick="abrirModalConfirmarRemocao()"
+                        >
+                            Deletar Projeto
+                        </button>
+                        <button id="addProject" class="botao-sucesso">
+                            Salvar
+                        </button>
+                    </footer>
+                </form>
+            </main>
+        </section>
+
+        <!--modal de confirmar a remoção do projeto-->
+        <section id="modal-confirmar-deletar-projeto" style="display: none">
+            <main class="modal" style="z-index: 102">
+                <header class="modal-header">
+                    <p>Deletar projeto</p>
+                </header>
+                <div style="padding: 10px; padding-bottom: 0px">
+                    <p>
+                        Tem certeza dessa ação? Esse processo é
+                        <b> irreversível</b>
+                    </p>
+                </div>
+                <footer class="modal-footer">
+                    <button
+                        id="cancelar-remocao"
+                        class="botao-outlined borda-primaria"
+                        type="button"
+                        onclick="fecharModalConfirmacaoRemocao()"
+                    >
+                        Cancelar
+                    </button>
+                    <button
+                        id="confirmar-remocao"
+                        class="botao-vermelho"
+                        style="font-weight: normal; height: 100%"
+                        onclick="deletarProjeto()"
+                    >
+                        Deletar projeto
+                    </button>
+                </footer>
+            </main>
+        </section>
+
+        <!--modal de criar ou atualizar template-->
+        <section id="modal-criar-template">
+            <main class="modal">
+                <header class="modal-header">
+                    <p>Template</p>
+                    <button
+                        onclick="fecharModais()"
+                        style="font-weight: 400"
+                        class="botao-branco"
+                    >
+                        Fechar
+                    </button>
+                </header>
+                <form
+                    id="adicionar-template"
+                    style="
+                        display: flex;
+                        flex-direction: column;
+                        max-height: calc(100vh - 100px);
+                    "
+                >
+                    <div id="formulario-adicionar-template" class="corpo-modal">
+                        <label>
+                            Nome*
+                            <input type="text" name="nome" required />
+                        </label>
+                        <label>
+                            Descrição*
+                            <textarea
+                                name="descricao"
+                                rows="4"
+                                required
+                            ></textarea>
+                        </label>
+                        <label> Tarefas </label>
+                        <main id="listagem-tarefas-template"></main>
+                        <button
+                            type="button"
+                            style="margin-top: 5px"
+                            onclick="adicionarNovaTarefa('template')"
+                            class="botao-outlined borda-primaria"
+                        >
+                            Adicionar tarefa +
+                        </button>
+                    </div>
+                    <footer class="modal-footer">
+                        <button id="add-template" class="botao-sucesso">
+                            Salvar
+                        </button>
+                    </footer>
+                </form>
+            </main>
+        </section>
+
+        <!--scripts api-->
+        <script src="scripts/api/api.js"></script>
+        <script src="scripts/api/projeto.service.js"></script>
+        <script src="scripts/api/template.service.js"></script>
+        <script src="scripts/api/dashboard.service.js"></script>
+
+        <!--scripts de componentes e comportamentos-->
+        <script src="scripts/modal/index.js"></script>
+        <script src="scripts/emoji-select/emojis.constants.js"></script>
+        <script src="scripts/emoji-select/index.js"></script>
+        <script src="scripts/projeto/modal-projeto.js"></script>
+        <script src="scripts/projeto/meus-projetos.js"></script>
+        <script src="scripts/projeto/placeholder-possiveis.constant.js"></script>
+        <script src="scripts/template/meus-templates.js"></script>
+        <script src="scripts/template/modal-template.js"></script>
+        <script src="scripts/tarefa/tarefas.js"></script>
+        <script src="scripts/collapse/collapse.js"></script>
+        <script src="scripts/dashboard/dashboard.js"></script>
+
+        <!--script toast-->
+        <script
+            type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/toastify-js"
+        ></script>
+    </body>
+</html>

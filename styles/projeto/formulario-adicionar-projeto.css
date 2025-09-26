@@ -1,0 +1,13 @@
+.formulario-adicionar-projeto {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 90vw;
+    max-width: 500px;
+
+    max-height: 80vh;
+
+    overflow-y: auto;
+    padding-inline: 10px;
+    padding-top: 10px;
+}

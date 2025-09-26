@@ -1,0 +1,79 @@
+button {
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+
+    background-size: 200% 100%;
+    background-position: left;
+    transition: background-position 0.5s ease;
+
+    color: var(--preto);
+}
+
+button:hover {
+    background-position: right;
+}
+
+button:active {
+    opacity: 0.9;
+}
+
+.botao-primario {
+    color: var(--white);
+    background-image: linear-gradient(
+        to right,
+        var(--primary-dark),
+        var(--primary)
+    );
+}
+
+.botao-cinza {
+    background-image: linear-gradient(to right, var(--gray), var(--light-gray));
+    color: var(--dark-gray);
+}
+
+.botao-branco {
+    background-image: linear-gradient(
+        to right,
+        var(--dark-white),
+        var(--darker-white)
+    );
+}
+
+.botao-vermelho {
+    background-image: linear-gradient(
+        to right,
+        var(--error),
+        var(--error-dark)
+    );
+    color: var(--white);
+    font-weight: 700;
+}
+
+.botao-outlined {
+    background: transparent;
+    border: 2px solid;
+    padding: 6px 14px;
+
+    transition: background 0.5s;
+}
+
+.botao-outlined:hover {
+    background-color: color-mix(in srgb, var(--white) 95%, black 5%);
+}
+
+.botao-sucesso {
+    background-image: linear-gradient(
+        to right,
+        var(--success),
+        var(--success-dark)
+    );
+    color: var(--white);
+}
+
+.borda-primaria {
+    border-color: var(--primary-dark);
+    color: var(--primary-dark);
+}
