@@ -27,7 +27,7 @@ Interface web para o Lancer Free, um sistema de gerenciamento de projetos para f
 
 1.  **Clone o repositório:**
     ```bash
-    git clone <url-do-repositorio-do-front> lancer-free-front
+    git clone https://github.com/fifo123/lancer-free-front.git lancer-free-front
     cd lancer-free-front
     ```
 
